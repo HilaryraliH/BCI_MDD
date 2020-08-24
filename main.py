@@ -5,6 +5,7 @@ from save_info import save_training_pic
 
 ########################################################
 # load training data
+# Note: the data is randomlized, but later, we may don't need a randomlized dataset, this need to be modified
 ########################################################
 root_dir = 'C:\\Users\\Impos\\Desktop\\MDD\\BCI_MDD\\'
 processed_data_dir = root_dir+'processed_data\\'
@@ -27,13 +28,12 @@ save_training_pic(history, save_dir)
 
 
 
-
-'''train'''
-
-
-
 '''evaluate'''
-# val_file_list = np.load(processed_data_dir+'val_file_list.npy')
-# val_data = np.load(processed_data_dir+'val_data.npy')
+val_file_list = np.load(processed_data_dir+'val_file_list.npy')
+val_data = np.load(processed_data_dir+'val_data.npy')
+val_pre = model.predict(val_data)
+val_pre = val_pre[:,1] # got the 0 ro 1 label of validation data
+# but I don't see the sample_submission.csv, don't know the format, so ..... wait...
+
 
 '''plot and save'''
