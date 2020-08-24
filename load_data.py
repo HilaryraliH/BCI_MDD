@@ -2,7 +2,6 @@ import numpy as np
 import pandas as pd 
 import os
 from keras.utils import to_categorical
-root_dir = 'C:\\Users\\Impos\\Desktop\\MDD\\BCI_MDD\\'
 
 ########################################################
 # check one path is exist, if not, make dir
@@ -19,7 +18,7 @@ def check_path(dir):
 # load training set (1240 samples, 128*500*1)
 # Input: None
 # Output: an array of (sampels, channels, sample_rates, 1)
-# Other Info: N,normalm:label=0   D,MDD:label=1
+# Other Info: N,normal:label=0   D,MDD:label=1
 ########################################################
 
 def load_tr_data():
@@ -51,7 +50,7 @@ def load_tr_data():
     tr_label = tr_label.reshape((tr_label.shape[0], 1))
     tr_label_binary = to_categorical(tr_label)
 
-    print("Randomlize the index......")
+    print("Randomlize the index......   I can also do it in keras model.fit(...shuffle=True...), not here")
     rand_inx = np.random.permutation(range(tr_data.shape[0]))
     tr_data = tr_data[rand_inx]
     tr_label = tr_label[rand_inx]
@@ -88,15 +87,17 @@ def load_val_data():
 ########################################################
 # load and save data to file
 ########################################################
-tr_data, tr_label, tr_label_binary = load_tr_data()
-val_file_list,val_data = load_val_data()
+if __name__ == "__main__":
+    tr_data, tr_label, tr_label_binary = load_tr_data()
+    val_file_list,val_data = load_val_data()
 
-processed_data_dir = root_dir+'processed_data\\'
-check_path(processed_data_dir)
+    root_dir = 'C:\\Users\\Impos\\Desktop\\MDD\\BCI_MDD\\'
+    processed_data_dir = root_dir+'processed_data\\'
+    check_path(processed_data_dir)
 
-np.save(processed_data_dir+'tr_data.npy',tr_data)
-np.save(processed_data_dir+'tr_label.npy',tr_label)
-np.save(processed_data_dir+'tr_label_binary.npy',tr_label_binary)
-np.save(processed_data_dir+'val_file_list.npy',val_file_list)
-np.save(processed_data_dir+'val_data.npy',val_data)
+    np.save(processed_data_dir+'tr_data.npy',tr_data)
+    np.save(processed_data_dir+'tr_label.npy',tr_label)
+    np.save(processed_data_dir+'tr_label_binary.npy',tr_label_binary)
+    np.save(processed_data_dir+'val_file_list.npy',val_file_list)
+    np.save(processed_data_dir+'val_data.npy',val_data)
 
