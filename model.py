@@ -33,10 +33,10 @@ def EEGNet():
 def CRNN():
     permuted = Permute((3,2,1))(model_input)
     print('permuted.shape',permuted.shape)
-    block1 = Conv2D(8, (1, 20))(permuted)
+    block1 = Conv2D(64, (1, 20))(permuted)
     block1 = BatchNormalization(axis=-1)(block1)
 
-    block1 = Conv2D(16, (1, 20))(block1)
+    block1 = Conv2D(32, (1, 20))(block1)
     block1 = BatchNormalization()(block1) 
     block1 = Activation('elu')(block1)
     block1 = AveragePooling2D((1, 4))(block1)

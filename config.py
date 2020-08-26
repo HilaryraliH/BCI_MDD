@@ -2,7 +2,7 @@ from load_data import check_path
 import os
 
 # set model config
-model_name = "CRNN" # EEGNet CRNN
+model_name = "EEGNet" # EEGNet CRNN
 batch_size=64
 epochs = 2
 verbose = 2
@@ -20,7 +20,9 @@ val_data_dir = os.path.join(val_root_dir, 'data')
 
 # save information path
 save_dir = root_dir+'save_pic_info\\'
+save_md_stru_dir = root_dir +'save_model_stru_png\\'
 check_path(save_dir)
+check_path(save_md_stru_dir)
 
 # save processed data path
 tr_data_file=processed_data_dir+'tr_data.npy'
