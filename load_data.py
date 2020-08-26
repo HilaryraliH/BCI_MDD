@@ -2,17 +2,8 @@ import numpy as np
 import pandas as pd 
 import os
 from keras.utils import to_categorical
+from config import *
 
-########################################################
-# check one path is exist, if not, make dir
-########################################################
-def check_path(dir):
-    if not os.path.exists(dir):
-        try:
-            os.makedirs(dir)
-        except:
-            print('make dir error')
-            return
 
 ########################################################
 # load training set (1240 samples, 128*500*1)
@@ -22,8 +13,6 @@ def check_path(dir):
 ########################################################
 
 def load_tr_data():
-    tr_root_dir = '..\\Training_Set'
-    tr_data_dir = os.path.join(tr_root_dir, 'train_data')
     tr_data = []
     tr_label = []
     for cnt, sub_name in enumerate(os.listdir(tr_data_dir)):
@@ -59,45 +48,53 @@ def load_tr_data():
     return tr_data, tr_label, tr_label_binary
 
 ########################################################
-# load validation set (440 samples, 128*500)
+# load validation set (440 samples, 128*500*1)
 # Input: None
 # Output: an array of (sampels, channels, sample_rates, 1)
 ########################################################
 
 def load_val_data():
-    tr_root_dir = '..\\Validation_Set'
-    tr_data_dir = os.path.join(tr_root_dir, 'data')
-    tr_data = []
-    val_file_list = os.listdir(tr_data_dir)
+    val_data = []
+    val_file_list = os.listdir(val_data_dir)
     for file_name in val_file_list:
-        file_path = os.path.join(tr_data_dir,file_name)
+        file_path = os.path.join(val_data_dir,file_name)
         file_data = np.array(pd.read_csv(file_path,header=None))
         file_data = np.expand_dims(file_data,axis=0)
-        if tr_data==[]:
-            tr_data = file_data
+        if val_data==[]:
+            val_data = file_data
         else:
-            tr_data = np.concatenate((tr_data,file_data),axis=0)
-        if tr_data.shape[0]%50==0:
-            print("val_data.shape:{}".format(tr_data.shape))
-    tr_data = np.expand_dims(tr_data,axis=3)
-    print("Finnaly, val_data.shape:\033[0;32;m{}\033[0m".format(tr_data.shape))
-    return val_file_list,tr_data
+            val_data = np.concatenate((val_data,file_data),axis=0)
+        if val_data.shape[0]%50==0:
+            print("val_data.shape:{}".format(val_data.shape))
+    val_data = np.expand_dims(val_data,axis=3)
+    print("Finnaly, val_data.shape:\033[0;32;m{}\033[0m".format(val_data.shape))
+    return val_file_list,val_data
+
+
+########################################################
+# check one path is exist, if not, make dir
+########################################################
+def check_path(dir):
+    if not os.path.exists(dir):
+        try:
+            os.makedirs(dir)
+        except:
+            print('make dir error')
+            return
+
+
 
 
 ########################################################
 # load and save data to file
 ########################################################
+from config import *
 if __name__ == "__main__":
     tr_data, tr_label, tr_label_binary = load_tr_data()
     val_file_list,val_data = load_val_data()
-
-    root_dir = 'C:\\Users\\Impos\\Desktop\\MDD\\BCI_MDD\\'
-    processed_data_dir = root_dir+'processed_data\\'
-    check_path(processed_data_dir)
-
-    np.save(processed_data_dir+'tr_data.npy',tr_data)
-    np.save(processed_data_dir+'tr_label.npy',tr_label)
-    np.save(processed_data_dir+'tr_label_binary.npy',tr_label_binary)
-    np.save(processed_data_dir+'val_file_list.npy',val_file_list)
-    np.save(processed_data_dir+'val_data.npy',val_data)
+    np.save(tr_data_file,tr_data)
+    np.save(tr_label_file,tr_label)
+    np.save(tr_label_binary_file,tr_label_binary)
+    np.save(val_file_list_file,val_file_list)
+    np.save(val_data_file,val_data)
 
