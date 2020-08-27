@@ -2,9 +2,9 @@ from load_data import check_path
 import os
 
 # set model config
-model_name = "EEGNet" # EEGNet CRNN
+model_name = "CRNN" # EEGNet CRNN
 batch_size=64
-epochs = 2
+epochs = 30
 verbose = 2
 
 # project path
