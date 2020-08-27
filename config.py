@@ -2,7 +2,7 @@ from load_data import check_path
 import os
 
 # set model config
-model_name = "CRNN" # EEGNet CRNN
+model_name = "CRNN1_spatial" # EEGNet CRNN1  CRNN1_spatial
 batch_size=64
 epochs = 30
 verbose = 2
