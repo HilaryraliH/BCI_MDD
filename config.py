@@ -1,8 +1,15 @@
-from load_data import check_path
 import os
 
+def check_path(dir):
+    if not os.path.exists(dir):
+        try:
+            os.makedirs(dir)
+        except:
+            print('make dir error')
+            return
+
 # set model config
-model_name = "CRNN1_spatial" # EEGNet CRNN1  CRNN1_spatial
+model_name = "Pro_R2" # EEGNet CRNN1  CRNN1_spatial
 batch_size=64
 epochs = 30
 verbose = 2

@@ -1,5 +1,5 @@
 import numpy as np
-from model import EEGNet, CRNN
+from model import *
 from save_info import save_training_pic
 from config import *
 

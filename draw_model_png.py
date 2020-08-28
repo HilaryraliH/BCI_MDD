@@ -1,7 +1,7 @@
 import os
 from keras.utils import plot_model
 from config import *
-from model import EEGNet,CRNN
+from model import *
 
 os.environ["PATH"] += os.pathsep + 'C:/C1_Install_package/Graphviz/Graphviz 2.44.1/bin'
 model = eval(model_name)()

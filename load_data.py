@@ -1,6 +1,5 @@
 import numpy as np
 import pandas as pd 
-import os
 from keras.utils import to_categorical
 from config import *
 
@@ -74,13 +73,7 @@ def load_val_data():
 ########################################################
 # check one path is exist, if not, make dir
 ########################################################
-def check_path(dir):
-    if not os.path.exists(dir):
-        try:
-            os.makedirs(dir)
-        except:
-            print('make dir error')
-            return
+
 
 
 

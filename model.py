@@ -81,9 +81,9 @@ def CRNN1_spatial():
     return Model(inputs=model_input, outputs=preds)
 
 
-def Pro_R():
-
-    block1 = Conv2D(8, (1, 20))(model_input)
+def Pro_R1():
+    permuted = Permute((3, 2, 1))(model_input)
+    block1 = Conv2D(8, (1, 20))(permuted)
     block1 = BatchNormalization(axis=-1)(block1)
 
     block1 = DepthwiseConv2D((1, 20), depth_multiplier=2, depthwise_constraint=max_norm(1.))(block1)
@@ -108,3 +108,28 @@ def Pro_R():
     return Model(inputs=model_input, outputs=preds)
 
 
+def Pro_R2():
+    permuted = Permute((3, 2, 1))(model_input)
+    block1 = Conv2D(32, (1, 20))(permuted)
+    block1 = BatchNormalization(axis=-1)(block1)
+
+    block1 = DepthwiseConv2D((1, 20), depth_multiplier=2, depthwise_constraint=max_norm(1.))(block1)
+    block1 = BatchNormalization()(block1) 
+    block1 = Activation('elu')(block1)
+    block1 = AveragePooling2D((1, 4))(block1)
+    block1 = Dropout(0.5)(block1)
+
+    block2 = SeparableConv2D(16, (1, 16) )(block1)
+    block2 = BatchNormalization(axis=-1)(block2)
+    block2 = Activation('elu')(block2)
+
+    print(block2.shape)
+    block3 = Reshape((int(block2.shape[-2]), int(block2.shape[-1])))(block2)
+
+    lstm4 = LSTM(32, return_sequences=True)(block3)
+    lstm4 = LSTM(8, return_sequences=True)(lstm4)
+
+    flatten5 = Flatten()(lstm4)
+    preds = Dense(2, activation='softmax', kernel_constraint=max_norm(0.25))(flatten5)
+
+    return Model(inputs=model_input, outputs=preds)
