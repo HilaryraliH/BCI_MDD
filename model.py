@@ -29,7 +29,6 @@ def EEGNet():
     return Model(inputs=model_input, outputs=softmax)
 
 
-
 def CRNN1():
     permuted = Permute((3,2,1))(model_input) 
     block1 = Conv2D(64, (1, 20))(permuted)

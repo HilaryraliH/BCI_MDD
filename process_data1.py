@@ -1,3 +1,12 @@
+
+########################################################
+# Mix each sub
+########################################################
+
+
+
+
+
 import numpy as np
 import pandas as pd 
 from keras.utils import to_categorical
@@ -47,27 +56,27 @@ def load_tr_data():
     return tr_data, tr_label, tr_label_binary
 
 ########################################################
-# load validation set (440 samples, 128*500*1)
+# load testidation set (440 samples, 128*500*1)
 # Input: None
 # Output: an array of (sampels, channels, sample_rates, 1)
 ########################################################
 
-def load_val_data():
-    val_data = []
-    val_file_list = os.listdir(val_data_dir)
-    for file_name in val_file_list:
-        file_path = os.path.join(val_data_dir,file_name)
+def load_test_data():
+    test_data = []
+    test_file_list = os.listdir(test_data_dir)
+    for file_name in test_file_list:
+        file_path = os.path.join(test_data_dir,file_name)
         file_data = np.array(pd.read_csv(file_path,header=None))
         file_data = np.expand_dims(file_data,axis=0)
-        if val_data==[]:
-            val_data = file_data
+        if test_data==[]:
+            test_data = file_data
         else:
-            val_data = np.concatenate((val_data,file_data),axis=0)
-        if val_data.shape[0]%50==0:
-            print("val_data.shape:{}".format(val_data.shape))
-    val_data = np.expand_dims(val_data,axis=3)
-    print("Finnaly, val_data.shape:\033[0;32;m{}\033[0m".format(val_data.shape))
-    return val_file_list,val_data
+            test_data = np.concatenate((test_data,file_data),axis=0)
+        if test_data.shape[0]%50==0:
+            print("test_data.shape:{}".format(test_data.shape))
+    test_data = np.expand_dims(test_data,axis=3)
+    print("Finnaly, test_data.shape:\033[0;32;m{}\033[0m".format(test_data.shape))
+    return test_file_list,test_data
 
 
 ########################################################
@@ -84,10 +93,10 @@ def load_val_data():
 from config import *
 if __name__ == "__main__":
     tr_data, tr_label, tr_label_binary = load_tr_data()
-    val_file_list,val_data = load_val_data()
+    test_file_list,test_data = load_test_data()
     np.save(tr_data_file,tr_data)
     np.save(tr_label_file,tr_label)
     np.save(tr_label_binary_file,tr_label_binary)
-    np.save(val_file_list_file,val_file_list)
-    np.save(val_data_file,val_data)
+    np.save(test_file_list_file,test_file_list)
+    np.save(test_data_file,test_data)
 
