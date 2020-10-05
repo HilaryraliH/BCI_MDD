@@ -116,8 +116,8 @@ for val_sub in range(1,15):
     test_pre = model.predict(test_data)
     test_pre = test_pre[:,1] # got the 0 or 1 label of test data
 
-    f = open('result1.csv','w',newline='') # save results to file as the competition required
+    f = open('result'+str(val_sub)+'.csv','w',newline='') # save results to file as the competition required
     result = csv.writer(f)
-    result.writerow(['id','label'])
     results = [[i,test_pre[i]] for i in range(len(test_pre))]
+    result.writerow([['id','label']]+results)
     f.close()
