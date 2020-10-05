@@ -32,6 +32,11 @@ def save_training_pic(hist, save_dir,val_sub):
     plt.close()
 
 
+
+
+########################################################
+# check one path is exist, if not, make dir
+########################################################
 def check_path(dir):
     if not os.path.exists(dir):
         try:
