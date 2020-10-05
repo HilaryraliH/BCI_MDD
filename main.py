@@ -19,7 +19,7 @@ for val_sub in range(1, 15):
     # get_save_path
     ########################################################
     '''save information path'''
-    save_dir = '.'+'save_pic_info'+'\\'
+    save_dir = '.\\'+'save_pic_info'+'\\'
     check_path(save_dir)
     tr_data_file, tr_label_file, tr_label_binary_file, val_data_file, val_label_file, val_label_binary_file, test_data_file, test_file_list_file = get_save_path(
         val_sub)

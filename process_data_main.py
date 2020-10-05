@@ -84,7 +84,7 @@ def load_test_data(test_data_dir):
 
 def get_save_path(val_sub):
     # processed data directory
-    processed_data_dir = '.'+'processed_data\\'
+    processed_data_dir = '.\\'+'processed_data\\'
     check_path(processed_data_dir)
 
     tr_data_file = processed_data_dir+'tr_data' + str(val_sub) + '.npy'
