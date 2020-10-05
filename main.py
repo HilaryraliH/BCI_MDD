@@ -15,8 +15,8 @@ total_D_num = 14 # 重度抑郁症人数（label为1）
 total_N_num = 17 # 正常被试人数（label为0）
 
 # project path
-root_dir='C:\\Users\\Impos\\Desktop\\MDD\\BCI_MDD\\'
-processed_data_dir='C:\\Users\\Impos\\Desktop\\MDD\\BCI_MDD\\'+'processed_data\\'
+root_dir='.'
+processed_data_dir=root_dir+'processed_data\\'
 check_path(processed_data_dir)
 
 # data path
@@ -93,7 +93,7 @@ for val_sub in range(1,15):
     val_label_binary=np.load(val_label_binary_file)
 
     ########################################################
-    # train model
+    # train model, and evaluate model
     ########################################################
     model = eval(model_name)()
     model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
@@ -113,11 +113,11 @@ for val_sub in range(1,15):
     ########################################################
     test_file_list = np.load(test_file_list_file)
     test_data = np.load(test_data_file)
-    test_pre = model.predict(test_data)
-    test_pre = test_pre[:,1] # got the 0 or 1 label of test data
+    probs = model.predict(test_data)
+    preds = probs.argmax(axis=-1) # got the 0 or 1 label of test data
 
     f = open('result'+str(val_sub)+'.csv','w',newline='') # save results to file as the competition required
     result = csv.writer(f)
-    results = [[i,test_pre[i]] for i in range(len(test_pre))]
+    results = [[i,preds[i]] for i in range(len(preds))]
     result.writerow([['id','label']]+results)
     f.close()

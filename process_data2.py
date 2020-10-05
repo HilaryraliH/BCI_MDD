@@ -25,9 +25,9 @@ def load_tr_val_data(sub_list,tr_data_dir):
         print('     loading {}.csv'.format(sub_name),end='  ')
         tr_sub_path = os.path.join(tr_data_dir, sub_name)
         if sub_name[0]=='D':                                                    
-            sub_label = np.ones((len(os.listdir(tr_sub_path)),))
+            sub_label = np.ones((len(os.listdir(tr_sub_path)),)) # 患者，label为1
         elif sub_name[0]=='N':
-            sub_label = np.zeros((len(os.listdir(tr_sub_path)),))
+            sub_label = np.zeros((len(os.listdir(tr_sub_path)),)) # 正常，label为0
         sub_data = np.zeros((len(os.listdir(tr_sub_path)),128,500))
         for i,file_name in enumerate(os.listdir(tr_sub_path)):
             file_path = os.path.join(tr_sub_path,file_name)
