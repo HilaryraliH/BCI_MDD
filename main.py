@@ -38,8 +38,8 @@ for val_sub in range(1,15):
     ########################################################
 
     '''save information path'''
-    save_dir = root_dir+'save_pic_info'+str(val_sub)+'\\'
-    save_md_stru_dir = root_dir +'save_model_stru_png'+str(val_sub)+'\\'
+    save_dir = root_dir+'save_pic_info'+'\\'
+    save_md_stru_dir = root_dir +'save_model_stru_png'+'\\'
     check_path(save_dir)
     check_path(save_md_stru_dir)
 
@@ -106,7 +106,7 @@ for val_sub in range(1,15):
     history = model.fit(tr_data,tr_label_binary,batch_size=batch_size,epochs=epoch,verbose=verbose,\
         shuffle=True, validation_data=(val_data,val_label_binary))
 
-    save_training_pic(history, save_dir)
+    save_training_pic(history, save_dir,val_sub)
 
     ########################################################
     # Test the model and save the results to file
