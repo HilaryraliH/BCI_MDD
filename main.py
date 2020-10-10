@@ -7,9 +7,9 @@ import csv
 
 
 # set model config
-model_name = "EEGNet"  # EEGNet CRNN1  CRNN1_spatial
+model_name = "ShallowConvNet"  # EEGNet CRNN1  CRNN1_spatial
 batch_size = 64
-epoch = 15
+epoch = 50
 verbose = 2
 inter_sub_training = False
 
