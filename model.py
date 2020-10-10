@@ -134,10 +134,11 @@ def Pro_R2():
     return Model(inputs=model_input, outputs=preds)
 
 
-def ShallowConvNet(model_input):
+def ShallowConvNet():
     # article: EEGNet: a compact convolutional neural network for EEG-based brain–computer interfaces
     # changed as the comments
-    block1 = Conv2D(40, (1, 25), kernel_constraint=max_norm(2., axis=(0, 1, 2)))(model_input)
+    block0 = BatchNormalization()(model_input)
+    block1 = Conv2D(40, (1, 25), kernel_constraint=max_norm(2., axis=(0, 1, 2)))(block0)
     block1 = Conv2D(40, (128, 1), use_bias=False,
                     kernel_constraint=max_norm(2., axis=(0, 1, 2)))(block1)
     block1 = BatchNormalization(axis=-1, epsilon=1e-05, momentum=0.1)(block1)
@@ -145,6 +146,22 @@ def ShallowConvNet(model_input):
     block1 = AveragePooling2D(pool_size=(1, 75), strides=(1, 7))(block1)
     block1 = Activation(log)(block1)
     block1 = Dropout(0.5)(block1)
+    flatten = Flatten()(block1)
+    dense = Dense(2, kernel_constraint=max_norm(0.5))(flatten)
+    softmax = Activation('softmax')(dense)
+
+    return Model(inputs=model_input, outputs=softmax)
+
+def shallow_ShallowConvNet():
+    # article: EEGNet: a compact convolutional neural network for EEG-based brain–computer interfaces
+    # changed as the comments
+    block1 = Conv2D(40, (1, 100), kernel_constraint=max_norm(2., axis=(0, 1, 2)))(model_input)
+    block1 = Conv2D(40, (128, 1), use_bias=False,
+                    kernel_constraint=max_norm(2., axis=(0, 1, 2)))(block1)
+    block1 = BatchNormalization(axis=-1, epsilon=1e-05, momentum=0.1)(block1)
+    block1 = Activation('relu')(block1)
+    block1 = AveragePooling2D(pool_size=(1, 100), strides=(1, 7))(block1)
+    block1 = Dropout(0.7)(block1)
     flatten = Flatten()(block1)
     dense = Dense(2, kernel_constraint=max_norm(0.5))(flatten)
     softmax = Activation('softmax')(dense)
