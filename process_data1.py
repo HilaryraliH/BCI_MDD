@@ -2,15 +2,11 @@
 ########################################################
 # Mix each sub
 ########################################################
-
-
-
-
-
 import numpy as np
 import pandas as pd 
 from keras.utils import to_categorical
-from config import *
+import os
+
 
 
 ########################################################
@@ -77,14 +73,6 @@ def load_test_data():
     test_data = np.expand_dims(test_data,axis=3)
     print("Finnaly, test_data.shape:\033[0;32;m{}\033[0m".format(test_data.shape))
     return test_file_list,test_data
-
-
-########################################################
-# check one path is exist, if not, make dir
-########################################################
-
-
-
 
 
 ########################################################

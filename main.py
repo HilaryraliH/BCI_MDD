@@ -13,12 +13,11 @@ epoch = 2
 verbose = 2
 
 
-for val_sub in range(1, 15):
+for val_sub in range(1, 2):
 
     ########################################################
-    # get_save_path
+    # get_save_path, save information path
     ########################################################
-    '''save information path'''
     save_dir = '.\\'+'save_pic_info'+'\\'
     check_path(save_dir)
     tr_data_file, tr_label_file, tr_label_binary_file, val_data_file, val_label_file, val_label_binary_file, test_data_file, test_file_list_file = get_save_path(
@@ -51,6 +50,7 @@ for val_sub in range(1, 15):
     '''inter-sub training'''
     history = model.fit(tr_data, tr_label_binary, batch_size=batch_size, epochs=epoch, verbose=verbose,
                         shuffle=True, validation_data=(val_data, val_label_binary))
+    model.save('model'+str(val_sub)+'.h5')
     save_training_pic(history, save_dir, val_sub)
 
     ########################################################
@@ -64,6 +64,6 @@ for val_sub in range(1, 15):
     # save results to file as the competition required
     f = open('result'+str(val_sub)+'.csv', 'w', newline='')
     result = csv.writer(f)
-    results = [[i, preds[i]] for i in range(len(preds))]
+    results = [[i+1, preds[i]] for i in range(len(preds))]
     result.writerows([['id', 'label']]+results)
     f.close()

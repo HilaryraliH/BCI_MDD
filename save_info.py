@@ -3,35 +3,33 @@ import numpy as np
 import os
 
 def save_training_pic(hist, save_dir,val_sub):
-    #creat acc directory
+    #creat acc pic
     save_acc_file = save_dir + str(val_sub)+'acc.png'
 
     plt.figure()
     metric = 'accuracy'
     plt.plot(hist.history[metric])
     plt.plot(hist.history['val_' + metric])
-    plt.title('model ' + metric + ': {}'.format(hist.history[metric][-1]))
+    plt.title('model ' + metric + ': {}'.format(hist.history['val_' + metric][-1]))
     plt.ylabel(metric, fontsize='large')
     plt.xlabel('epoch', fontsize='large')
     plt.legend(['train', 'val'], loc='upper left')
     plt.savefig(save_acc_file, bbox_inches='tight')
     plt.close()
 
-    # create loss directory
+    # create loss pic
     save_loss_file = save_dir + str(val_sub)+'loss.png'
 
     plt.figure()
     metric = 'loss'
     plt.plot(hist.history[metric])
     plt.plot(hist.history['val_' + metric])
-    plt.title('model ' + metric + ': {}'.format(hist.history[metric][-1]))
+    plt.title('model ' + metric + ': {}'.format(hist.history['val_' + metric][-1]))
     plt.ylabel(metric, fontsize='large')
     plt.xlabel('epoch', fontsize='large')
     plt.legend(['train', 'val'], loc='upper left')
     plt.savefig(save_loss_file, bbox_inches='tight')
     plt.close()
-
-
 
 
 ########################################################

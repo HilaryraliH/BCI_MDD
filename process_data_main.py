@@ -48,11 +48,6 @@ def load_tr_val_data(sub_list, tr_data_dir):
     tr_label = tr_label.reshape((tr_label.shape[0], 1))
     tr_label_binary = to_categorical(tr_label)
 
-    print("     Randomlize the index......   I can also do it in keras model.fit(...shuffle=True...), not here")
-    rand_inx = np.random.permutation(range(tr_data.shape[0]))
-    tr_data = tr_data[rand_inx]
-    tr_label = tr_label[rand_inx]
-    tr_label_binary = tr_label_binary[rand_inx]
     print("     successfully load tr_data {} tr_label {} tr_label_binary {}".format(
         tr_data.shape, tr_label.shape, tr_label_binary.shape))
     return tr_data, tr_label, tr_label_binary
@@ -113,7 +108,7 @@ if __name__ == "__main__":
     test_root_dir = '.\\Validation_Set'
     test_data_dir = os.path.join(test_root_dir, 'data')
 
-    for val_sub in range(1, 15):
+    for val_sub in range(1, 2):
         
         # get the save path
         tr_data_file, tr_label_file, tr_label_binary_file, val_data_file, val_label_file, val_label_binary_file, test_data_file, test_file_list_file = get_save_path(
@@ -133,7 +128,7 @@ if __name__ == "__main__":
             val_sub_list))
         val_data, val_label, val_label_binary = load_tr_val_data(
             val_sub_list, tr_data_dir)  # get val data
-        print('Loading the test data from \033[0;32;m{}th\033[0m (the test directiory)'.format(
+        print('Loading the test data from \033[0;32;m{}\033[0m (the test directiory)'.format(
             test_root_dir))
         test_file_list, test_data = load_test_data(test_data_dir)  # get test data
 
