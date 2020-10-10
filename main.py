@@ -1,17 +1,17 @@
 import numpy as np
-from model import EEGNet
+from model import EEGNet,ShallowConvNet
 from save_info import save_training_pic, check_path
-from process_data_main import load_test_data, load_tr_val_data, get_save_path
+from process_data_main import get_save_path
 import os
 import csv
 
 
 # set model config
-model_name = "EEGNet"  # EEGNet CRNN1  CRNN1_spatial
+model_name = "ShallowConvNet"  # EEGNet CRNN1  CRNN1_spatial
 batch_size = 64
-epoch = 15
+epoch = 50
 verbose = 2
-inter_sub_training = False
+inter_sub_training = True
 
 for val_sub in range(1, 2):
 
