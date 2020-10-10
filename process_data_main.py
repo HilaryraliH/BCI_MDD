@@ -103,9 +103,9 @@ if __name__ == "__main__":
     total_N_num = 17  # 正常被试人数（label为0）
 
     # source data path
-    tr_root_dir = '.\\Training_Set'
+    tr_root_dir = '..\\Training_Set'
     tr_data_dir = os.path.join(tr_root_dir, 'train_data')
-    test_root_dir = '.\\Validation_Set'
+    test_root_dir = '..\\Validation_Set'
     test_data_dir = os.path.join(test_root_dir, 'data')
 
     for val_sub in range(1, 2):
